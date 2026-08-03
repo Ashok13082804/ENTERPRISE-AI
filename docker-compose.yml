@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: enterprise-ai-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./data/enterprise_ai.db
+      - SECRET_KEY=${SECRET_KEY:-enterprise-ai-secret-change-me}
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - CHROMA_PERSIST_DIR=./data/chroma_db
+      - UPLOAD_DIR=./uploads
+      - ENVIRONMENT=production
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/uploads:/app/uploads
+      - ./backend/logs:/app/logs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    container_name: enterprise-ai-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  backend_data:
+  backend_uploads:

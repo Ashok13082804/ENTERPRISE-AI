@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ─────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 13%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 270 70% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 55%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 20%;
+    --input: 217 33% 17%;
+    --ring: 239 84% 67%;
+    --radius: 0.75rem;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 239 84% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 270 70% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 239 84% 60%;
+  }
+}
+
+/* ── Base Styles ────────────────────────────────────────────────────────────── */
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+}
+
+/* ── Glassmorphism ─────────────────────────────────────────────────────────── */
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  .glass-card {
+    @apply glass rounded-2xl shadow-2xl;
+  }
+  .glass-nav {
+    @apply bg-black/20 backdrop-blur-2xl border-b border-white/10;
+  }
+
+  /* ── Gradient Text ───────────────────────────────────────────────────────── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400;
+  }
+  .gradient-text-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400;
+  }
+  .gradient-text-green {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-400;
+  }
+
+  /* ── Animated Gradient Border ────────────────────────────────────────────── */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899, #6366f1);
+    background-size: 300% 300%;
+    animation: gradient-rotate 4s ease infinite;
+    z-index: -1;
+  }
+  @keyframes gradient-rotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ── KPI Card ────────────────────────────────────────────────────────────── */
+  .kpi-card {
+    @apply glass-card p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-indigo-500/20 hover:shadow-2xl cursor-pointer;
+  }
+
+  /* ── Neon Glow Effects ───────────────────────────────────────────────────── */
+  .neon-indigo { box-shadow: 0 0 20px rgba(99,102,241,0.4), 0 0 60px rgba(99,102,241,0.15); }
+  .neon-purple { box-shadow: 0 0 20px rgba(168,85,247,0.4), 0 0 60px rgba(168,85,247,0.15); }
+  .neon-cyan   { box-shadow: 0 0 20px rgba(6,182,212,0.4),  0 0 60px rgba(6,182,212,0.15);  }
+  .neon-emerald{ box-shadow: 0 0 20px rgba(16,185,129,0.4), 0 0 60px rgba(16,185,129,0.15); }
+
+  /* ── Sidebar ─────────────────────────────────────────────────────────────── */
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all duration-200 cursor-pointer text-sm font-medium;
+  }
+  .sidebar-item.active {
+    @apply bg-primary/20 text-primary border border-primary/30;
+  }
+
+  /* ── Chat Bubble ─────────────────────────────────────────────────────────── */
+  .chat-bubble-user {
+    @apply bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%] shadow-lg;
+  }
+  .chat-bubble-ai {
+    @apply glass rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-lg;
+  }
+
+  /* ── Status Badges ───────────────────────────────────────────────────────── */
+  .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
+  .badge-success { @apply badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30; }
+  .badge-warning { @apply badge bg-amber-500/20 text-amber-400 border border-amber-500/30; }
+  .badge-error   { @apply badge bg-red-500/20 text-red-400 border border-red-500/30; }
+  .badge-info    { @apply badge bg-blue-500/20 text-blue-400 border border-blue-500/30; }
+  .badge-purple  { @apply badge bg-purple-500/20 text-purple-400 border border-purple-500/30; }
+
+  /* ── Animated background particles ──────────────────────────────────────── */
+  .bg-particles {
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 60%);
+  }
+
+  /* ── Input Styles ────────────────────────────────────────────────────────── */
+  .enterprise-input {
+    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm 
+    text-foreground placeholder:text-muted-foreground focus:outline-none 
+    focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-200;
+  }
+
+  /* ── Button Styles ───────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500
+    text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 
+    hover:shadow-lg hover:shadow-indigo-500/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20
+    text-foreground font-medium px-6 py-3 rounded-xl transition-all duration-200;
+  }
+  .btn-ghost {
+    @apply hover:bg-white/5 text-muted-foreground hover:text-foreground
+    font-medium px-4 py-2 rounded-lg transition-all duration-200;
+  }
+
+  /* ── Loading Shimmer ─────────────────────────────────────────────────────── */
+  .shimmer {
+    background: linear-gradient(90deg, 
+      hsl(var(--muted)) 25%, 
+      hsl(var(--secondary)) 50%, 
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* ── Metric Display ──────────────────────────────────────────────────────── */
+  .metric-up   { @apply text-emerald-400; }
+  .metric-down { @apply text-red-400; }
+}
+
+/* ── Prose for AI responses ─────────────────────────────────────────────────── */
+.prose-dark {
+  color: hsl(var(--foreground));
+}
+.prose-dark h1, .prose-dark h2, .prose-dark h3 { color: hsl(var(--foreground)); font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+.prose-dark p  { margin-bottom: 0.75rem; line-height: 1.7; }
+.prose-dark code { @apply bg-white/10 rounded px-1.5 py-0.5 text-xs font-mono text-indigo-300; }
+.prose-dark pre { @apply bg-black/40 rounded-xl p-4 overflow-x-auto my-3; }
+.prose-dark pre code { @apply bg-transparent p-0 text-sm; }
+.prose-dark ul, .prose-dark ol { padding-left: 1.25rem; margin-bottom: 0.75rem; }
+.prose-dark li { margin-bottom: 0.25rem; }
+.prose-dark strong { color: hsl(var(--foreground)); font-weight: 600; }
+.prose-dark a { @apply text-indigo-400 hover:text-indigo-300 underline; }
+.prose-dark blockquote { @apply border-l-4 border-indigo-500 pl-4 text-muted-foreground italic my-3; }
+.prose-dark table { @apply w-full border-collapse; }
+.prose-dark th { @apply bg-white/5 px-3 py-2 text-left text-sm font-semibold border border-white/10; }
+.prose-dark td { @apply px-3 py-2 text-sm border border-white/10; }
