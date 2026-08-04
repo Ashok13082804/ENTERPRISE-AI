@@ -30,7 +30,7 @@ from app.api.routes.misc_modules import (
     disaster_router, forensics_router, evoting_router
 )
 # Academic AI Modules
-from app.api.routes import math, physics, chemistry, csverse, bioverse, calcverse, linguaverse
+from app.api.routes import math, physics, chemistry, csverse, bioverse, calcverse, linguaverse, mlverse
 from app.middleware.logging import LoggingMiddleware
 from app.middleware.rate_limit import RateLimitMiddleware
 from app.middleware.security import SecurityHeadersMiddleware
@@ -147,6 +147,9 @@ def create_app() -> FastAPI:
     app.include_router(bioverse.router,      prefix=f"{prefix}/bioverse",      tags=["BioVerse AI"])
     app.include_router(calcverse.router,     prefix=f"{prefix}/calcverse",     tags=["CalcVerse AI"])
     app.include_router(linguaverse.router,   prefix=f"{prefix}/linguaverse",   tags=["LinguaVerse AI"])
+
+    # ── MLVerse 100 Platform Module ──────────────────────────────────────────
+    app.include_router(mlverse.router,       prefix=f"{prefix}/mlverse",       tags=["MLVerse Platform"])
 
     # ── Smart Notes Module ────────────────────────────────────────────────────
     app.include_router(notes.router,         prefix=f"{prefix}/notes",         tags=["Smart Notes"])

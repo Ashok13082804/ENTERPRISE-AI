@@ -8,6 +8,7 @@ import RAGPage from '@/pages/RAGPage'
 import DocumentsPage from '@/pages/DocumentsPage'
 import AnalyticsPage from '@/pages/AnalyticsPage'
 import MLPage from '@/pages/MLPage'
+import MLVersePage from '@/pages/MLVersePage'
 import VisionPage from '@/pages/VisionPage'
 import BlockchainPage from '@/pages/BlockchainPage'
 import NLPPage from '@/pages/NLPPage'
@@ -63,6 +64,7 @@ export default function App() {
         <Route path="rag" element={<RAGPage />} />
         <Route path="documents" element={<DocumentsPage />} />
         <Route path="analytics" element={<AnalyticsPage />} />
+        <Route path="mlverse" element={<MLVersePage />} />
         <Route path="ml" element={<MLPage />} />
         <Route path="vision" element={<VisionPage />} />
         <Route path="blockchain" element={<BlockchainPage />} />

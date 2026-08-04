@@ -4,122 +4,156 @@
 
 You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
   warnings.warn(
-INFO:     Started server process [4344]
+INFO:     Started server process [19711]
 INFO:     Waiting for application startup.
-2026-08-04 14:44:03.983 | INFO     | main:lifespan:44 - 🚀 Starting Unified Enterprise AI Platform...
-2026-08-04 14:44:03.983 | INFO     | app.utils.dependency_manager:check_and_install_all:53 - Checking local AI dependencies...
-2026-08-04 14:44:03,986 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-08-04 14:44:03,986 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("users")
-2026-08-04 14:44:03,986 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,988 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("login_history")
-2026-08-04 14:44:03,988 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,993 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("chat_sessions")
-2026-08-04 14:44:03,993 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,994 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("chat_messages")
-2026-08-04 14:44:03,994 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,994 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("documents")
-2026-08-04 14:44:03,994 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,995 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("analytics_events")
-2026-08-04 14:44:03,995 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,995 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("blockchain_records")
-2026-08-04 14:44:03,995 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,996 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("projects")
-2026-08-04 14:44:03,996 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:03,996 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("tasks")
-2026-08-04 14:44:03,996 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,004 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("notifications")
-2026-08-04 14:44:04,004 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,005 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("notes")
-2026-08-04 14:44:04,005 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,007 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("note_versions")
-2026-08-04 14:44:04,007 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,007 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("folders")
-2026-08-04 14:44:04,007 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,007 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("tags")
-2026-08-04 14:44:04,007 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,008 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("audit_logs")
-2026-08-04 14:44:04,008 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-08-04 14:44:04,008 INFO sqlalchemy.engine.Engine COMMIT
-2026-08-04 14:44:04.009 | INFO     | main:lifespan:57 - ✅ Database initialized
-2026-08-04 14:44:04,012 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-08-04 14:44:04,020 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
+2026-08-04 21:57:43.548 | INFO     | main:lifespan:44 - 🚀 Starting Unified Enterprise AI Platform...
+2026-08-04 21:57:43.549 | INFO     | app.utils.dependency_manager:check_and_install_all:53 - Checking local AI dependencies...
+2026-08-04 21:57:43,551 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:57:43,551 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("users")
+2026-08-04 21:57:43,551 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,552 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("login_history")
+2026-08-04 21:57:43,552 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,553 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("chat_sessions")
+2026-08-04 21:57:43,553 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("chat_messages")
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("documents")
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("analytics_events")
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("blockchain_records")
+2026-08-04 21:57:43,554 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,555 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("projects")
+2026-08-04 21:57:43,559 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,560 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("tasks")
+2026-08-04 21:57:43,560 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,560 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("notifications")
+2026-08-04 21:57:43,560 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,560 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("notes")
+2026-08-04 21:57:43,560 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,561 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("note_versions")
+2026-08-04 21:57:43,561 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,561 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("folders")
+2026-08-04 21:57:43,561 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,561 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("tags")
+2026-08-04 21:57:43,561 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,562 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("audit_logs")
+2026-08-04 21:57:43,562 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-08-04 21:57:43,562 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-04 21:57:43.563 | INFO     | main:lifespan:57 - ✅ Database initialized
+2026-08-04 21:57:43,563 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:57:43,571 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
 FROM users 
 WHERE users.email = ?
-2026-08-04 14:44:04,020 INFO sqlalchemy.engine.Engine [generated in 0.00007s] ('admin@enterprise.ai',)
-2026-08-04 14:44:04.021 | INFO     | app.utils.seed:seed_database:117 - ℹ️  Database already seeded
-2026-08-04 14:44:04,022 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-08-04 14:44:04.022 | INFO     | main:lifespan:61 - ✅ Database seeded
-2026-08-04 14:44:04,022 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-08-04 14:44:04,023 INFO sqlalchemy.engine.Engine SELECT blockchain_records.id, blockchain_records.block_index, blockchain_records.block_hash, blockchain_records.previous_hash, blockchain_records.record_type, blockchain_records.data, blockchain_records.data_hash, blockchain_records.issuer, blockchain_records.recipient, blockchain_records.description, blockchain_records.is_verified, blockchain_records.nonce, blockchain_records.timestamp 
+2026-08-04 21:57:43,571 INFO sqlalchemy.engine.Engine [generated in 0.00005s] ('admin@enterprise.ai',)
+2026-08-04 21:57:43.572 | INFO     | app.utils.seed:seed_database:117 - ℹ️  Database already seeded
+2026-08-04 21:57:43,572 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-04 21:57:43.573 | INFO     | main:lifespan:61 - ✅ Database seeded
+2026-08-04 21:57:43,573 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:57:43,574 INFO sqlalchemy.engine.Engine SELECT blockchain_records.id, blockchain_records.block_index, blockchain_records.block_hash, blockchain_records.previous_hash, blockchain_records.record_type, blockchain_records.data, blockchain_records.data_hash, blockchain_records.issuer, blockchain_records.recipient, blockchain_records.description, blockchain_records.is_verified, blockchain_records.nonce, blockchain_records.timestamp 
 FROM blockchain_records ORDER BY blockchain_records.block_index
-2026-08-04 14:44:04,023 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ()
-2026-08-04 14:44:04.028 | INFO     | app.blockchain.blockchain_service:initialize:172 - Blockchain loaded: 1 blocks
-2026-08-04 14:44:04,028 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-08-04 14:44:04.029 | INFO     | main:lifespan:68 - ✅ Blockchain service initialized
-2026-08-04 14:44:04.029 | INFO     | main:lifespan:70 - ✅ Server ready at http://localhost:8000
-2026-08-04 14:44:04.029 | INFO     | main:lifespan:71 - ✅ API Docs at http://localhost:8000/docs
+2026-08-04 21:57:43,574 INFO sqlalchemy.engine.Engine [generated in 0.00003s] ()
+2026-08-04 21:57:43.574 | INFO     | app.blockchain.blockchain_service:initialize:172 - Blockchain loaded: 1 blocks
+2026-08-04 21:57:43,574 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-08-04 21:57:43.575 | INFO     | main:lifespan:68 - ✅ Blockchain service initialized
+2026-08-04 21:57:43.575 | INFO     | main:lifespan:70 - ✅ Server ready at http://localhost:8000
+2026-08-04 21:57:43.575 | INFO     | main:lifespan:71 - ✅ API Docs at http://localhost:8000/docs
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-2026-08-04 14:44:04.116 | INFO     | app.middleware.logging:dispatch:13 - GET /health → 200 (1.52ms)
-INFO:     127.0.0.1:49935 - "GET /health HTTP/1.1" 200 OK
-2026-08-04 14:44:04.177 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: chromadb
-2026-08-04 14:44:04.255 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: pptx
-2026-08-04 14:44:04.281 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: cv2
-2026-08-04 14:44:04.283 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: pytesseract
-2026-08-04 14:44:05.101 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: easyocr
-2026-08-04 14:44:05.118 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: rdkit
-2026-08-04 14:44:05.118 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: sympy
-2026-08-04 14:44:06.298 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: sentence_transformers
-2026-08-04 14:44:06.314 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: faiss
+2026-08-04 21:57:43.770 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: chromadb
+2026-08-04 21:57:43.894 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: pptx
+2026-08-04 21:57:44.119 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: cv2
+2026-08-04 21:57:44.121 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: pytesseract
+2026-08-04 21:57:44.391 | INFO     | app.middleware.logging:dispatch:13 - GET /health → 200 (0.75ms)
+INFO:     127.0.0.1:52570 - "GET /health HTTP/1.1" 200 OK
+2026-08-04 21:57:45.335 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: easyocr
+2026-08-04 21:57:45.450 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: rdkit
+2026-08-04 21:57:45.450 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: sympy
+2026-08-04 21:57:47.266 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: sentence_transformers
+2026-08-04 21:57:47.310 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: faiss
+2026-08-04 21:57:47.419 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/analytics/dashboard → 401 (19.22ms)
+INFO:     127.0.0.1:52581 - "GET /api/v1/analytics/dashboard HTTP/1.1" 401 Unauthorized
 /Users/ashokkumar/Downloads/FInal_Year/backend/venv/lib/python3.11/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.7.0) or chardet (7.4.3)/charset_normalizer (3.4.9) doesn't match a supported version!
   warnings.warn(
-2026-08-04 14:44:06.401 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: vosk
-2026-08-04 14:44:06.624 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: whisper
-2026-08-04 14:44:06.635 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: speech_recognition
-2026-08-04 14:44:06.868 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: mediapipe
-2026-08-04 14:44:06.868 | INFO     | app.utils.dependency_manager:check_and_install_all:73 - All local AI dependencies are already installed.
-2026-08-04 14:44:12,395 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-08-04 14:44:12,396 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
+2026-08-04 21:57:47.452 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: vosk
+2026-08-04 21:57:47.795 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: whisper
+2026-08-04 21:57:47.806 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: speech_recognition
+2026-08-04 21:57:48.061 | INFO     | app.utils.dependency_manager:check_and_install_all:60 - Dependency available: mediapipe
+2026-08-04 21:57:48.062 | INFO     | app.utils.dependency_manager:check_and_install_all:73 - All local AI dependencies are already installed.
+2026-08-04 21:57:50,389 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:57:50,389 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
 FROM users 
 WHERE users.email = ?
-2026-08-04 14:44:12,396 INFO sqlalchemy.engine.Engine [cached since 8.376s ago] ('admin@enterprise.ai',)
-2026-08-04 14:44:12,611 INFO sqlalchemy.engine.Engine UPDATE users SET last_login=?, updated_at=? WHERE users.id = ?
-2026-08-04 14:44:12,611 INFO sqlalchemy.engine.Engine [generated in 0.00014s] ('2026-08-04 09:14:12.610908', '2026-08-04 09:14:12.611739', 1)
-2026-08-04 14:44:12,613 INFO sqlalchemy.engine.Engine INSERT INTO login_history (user_id, ip_address, user_agent, success, failure_reason, created_at) VALUES (?, ?, ?, ?, ?, ?)
-2026-08-04 14:44:12,613 INFO sqlalchemy.engine.Engine [generated in 0.00008s] (1, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15', 1, None, '2026-08-04 09:14:12.613823')
-2026-08-04 14:44:12,614 INFO sqlalchemy.engine.Engine COMMIT
-2026-08-04 14:44:12.615 | INFO     | app.middleware.logging:dispatch:13 - POST /api/v1/auth/login → 200 (222.28ms)
-INFO:     127.0.0.1:49948 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
-2026-08-04 14:44:12,745 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-08-04 14:44:12,746 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
+2026-08-04 21:57:50,389 INFO sqlalchemy.engine.Engine [cached since 6.818s ago] ('admin@enterprise.ai',)
+2026-08-04 21:57:50,609 INFO sqlalchemy.engine.Engine UPDATE users SET last_login=?, updated_at=? WHERE users.id = ?
+2026-08-04 21:57:50,609 INFO sqlalchemy.engine.Engine [generated in 0.00018s] ('2026-08-04 16:27:50.608500', '2026-08-04 16:27:50.609573', 1)
+2026-08-04 21:57:50,613 INFO sqlalchemy.engine.Engine INSERT INTO login_history (user_id, ip_address, user_agent, success, failure_reason, created_at) VALUES (?, ?, ?, ?, ?, ?)
+2026-08-04 21:57:50,613 INFO sqlalchemy.engine.Engine [generated in 0.00007s] (1, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15', 1, None, '2026-08-04 16:27:50.613606')
+2026-08-04 21:57:50,614 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-04 21:57:50.614 | INFO     | app.middleware.logging:dispatch:13 - POST /api/v1/auth/login → 200 (228.87ms)
+INFO:     127.0.0.1:52585 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+2026-08-04 21:57:50,661 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:57:50,661 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
 FROM users 
 WHERE users.id = ?
-2026-08-04 14:44:12,746 INFO sqlalchemy.engine.Engine [generated in 0.00006s] (1,)
-2026-08-04 14:44:12,747 INFO sqlalchemy.engine.Engine SELECT count(users.id) AS count_1 
+2026-08-04 21:57:50,661 INFO sqlalchemy.engine.Engine [generated in 0.00008s] (1,)
+2026-08-04 21:57:50,662 INFO sqlalchemy.engine.Engine SELECT count(users.id) AS count_1 
 FROM users
-2026-08-04 14:44:12,747 INFO sqlalchemy.engine.Engine [generated in 0.00005s] ()
-2026-08-04 14:44:12,747 INFO sqlalchemy.engine.Engine SELECT count(documents.id) AS count_1 
+2026-08-04 21:57:50,662 INFO sqlalchemy.engine.Engine [generated in 0.00005s] ()
+2026-08-04 21:57:50,663 INFO sqlalchemy.engine.Engine SELECT count(documents.id) AS count_1 
 FROM documents
-2026-08-04 14:44:12,747 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ()
-2026-08-04 14:44:12,747 INFO sqlalchemy.engine.Engine SELECT count(chat_messages.id) AS count_1 
+2026-08-04 21:57:50,663 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ()
+2026-08-04 21:57:50,663 INFO sqlalchemy.engine.Engine SELECT count(chat_messages.id) AS count_1 
 FROM chat_messages
-2026-08-04 14:44:12,747 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ()
-2026-08-04 14:44:12,748 INFO sqlalchemy.engine.Engine SELECT count(blockchain_records.id) AS count_1 
+2026-08-04 21:57:50,663 INFO sqlalchemy.engine.Engine [generated in 0.00005s] ()
+2026-08-04 21:57:50,664 INFO sqlalchemy.engine.Engine SELECT count(blockchain_records.id) AS count_1 
 FROM blockchain_records
-2026-08-04 14:44:12,748 INFO sqlalchemy.engine.Engine [generated in 0.00003s] ()
-2026-08-04 14:44:12,749 INFO sqlalchemy.engine.Engine SELECT blockchain_records.id, blockchain_records.block_index, blockchain_records.block_hash, blockchain_records.previous_hash, blockchain_records.record_type, blockchain_records.data, blockchain_records.data_hash, blockchain_records.issuer, blockchain_records.recipient, blockchain_records.description, blockchain_records.is_verified, blockchain_records.nonce, blockchain_records.timestamp 
+2026-08-04 21:57:50,664 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ()
+2026-08-04 21:57:50,665 INFO sqlalchemy.engine.Engine SELECT blockchain_records.id, blockchain_records.block_index, blockchain_records.block_hash, blockchain_records.previous_hash, blockchain_records.record_type, blockchain_records.data, blockchain_records.data_hash, blockchain_records.issuer, blockchain_records.recipient, blockchain_records.description, blockchain_records.is_verified, blockchain_records.nonce, blockchain_records.timestamp 
 FROM blockchain_records ORDER BY blockchain_records.block_index DESC
  LIMIT ? OFFSET ?
-2026-08-04 14:44:12,749 INFO sqlalchemy.engine.Engine [generated in 0.00004s] (10, 0)
-2026-08-04 14:44:12,749 INFO sqlalchemy.engine.Engine SELECT count(chat_sessions.id) AS count_1 
+2026-08-04 21:57:50,665 INFO sqlalchemy.engine.Engine [generated in 0.00005s] (10, 0)
+2026-08-04 21:57:50,665 INFO sqlalchemy.engine.Engine SELECT count(chat_sessions.id) AS count_1 
 FROM chat_sessions 
 WHERE chat_sessions.created_at >= ?
-2026-08-04 14:44:12,749 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ('2026-08-04 00:00:00.749359',)
-2026-08-04 14:44:12,750 INFO sqlalchemy.engine.Engine COMMIT
-2026-08-04 14:44:12.750 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/analytics/dashboard → 200 (5.7ms)
-INFO:     127.0.0.1:49951 - "GET /api/v1/analytics/dashboard HTTP/1.1" 200 OK
+2026-08-04 21:57:50,665 INFO sqlalchemy.engine.Engine [generated in 0.00004s] ('2026-08-04 00:00:00.665430',)
+2026-08-04 21:57:50,666 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-04 21:57:50.666 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/analytics/dashboard → 200 (6.68ms)
+INFO:     127.0.0.1:52586 - "GET /api/v1/analytics/dashboard HTTP/1.1" 200 OK
+2026-08-04 21:57:53.653 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/mlverse/catalog → 200 (9.33ms)
+2026-08-04 21:57:53.654 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/mlverse/catalog → 200 (3.54ms)
+INFO:     127.0.0.1:52590 - "GET /api/v1/mlverse/catalog HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52591 - "GET /api/v1/mlverse/catalog HTTP/1.1" 200 OK
+2026-08-04 21:58:01.642 | INFO     | app.middleware.logging:dispatch:13 - POST /api/v1/mlverse/predict/house-price → 200 (2.59ms)
+INFO:     127.0.0.1:52594 - "POST /api/v1/mlverse/predict/house-price HTTP/1.1" 200 OK
+2026-08-04 21:58:23.679 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/ml/sample-data/sales → 200 (4.56ms)
+2026-08-04 21:58:23.680 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/ml/sample-data/segmentation → 200 (4.08ms)
+INFO:     127.0.0.1:52598 - "GET /api/v1/ml/sample-data/sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52599 - "GET /api/v1/ml/sample-data/segmentation HTTP/1.1" 200 OK
+2026-08-04 21:58:25,000 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:58:25,000 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-04 21:58:25,000 INFO sqlalchemy.engine.Engine [cached since 34.34s ago] (1,)
+2026-08-04 21:58:25,000 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-08-04 21:58:25,001 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.username, users.employee_id, users.full_name, users.hashed_password, users.role, users.department, users.position, users.phone, users.avatar_url, users.bio, users.is_active, users.is_verified, users.is_mfa_enabled, users.mfa_secret, users.failed_login_attempts, users.locked_until, users.last_login, users.last_login_ip, users.password_changed_at, users.face_embedding, users.preferences, users.theme, users.language, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = ?
+2026-08-04 21:58:25,001 INFO sqlalchemy.engine.Engine [cached since 34.34s ago] (1,)
+2026-08-04 21:58:25,001 INFO sqlalchemy.engine.Engine SELECT blockchain_records.id, blockchain_records.block_index, blockchain_records.block_hash, blockchain_records.previous_hash, blockchain_records.record_type, blockchain_records.data, blockchain_records.data_hash, blockchain_records.issuer, blockchain_records.recipient, blockchain_records.description, blockchain_records.is_verified, blockchain_records.nonce, blockchain_records.timestamp 
+FROM blockchain_records ORDER BY blockchain_records.block_index
+2026-08-04 21:58:25,001 INFO sqlalchemy.engine.Engine [cached since 41.43s ago] ()
+2026-08-04 21:58:25,002 INFO sqlalchemy.engine.Engine SELECT blockchain_records.id, blockchain_records.block_index, blockchain_records.block_hash, blockchain_records.previous_hash, blockchain_records.record_type, blockchain_records.data, blockchain_records.data_hash, blockchain_records.issuer, blockchain_records.recipient, blockchain_records.description, blockchain_records.is_verified, blockchain_records.nonce, blockchain_records.timestamp 
+FROM blockchain_records ORDER BY blockchain_records.block_index
+2026-08-04 21:58:25,002 INFO sqlalchemy.engine.Engine [cached since 41.43s ago] ()
+2026-08-04 21:58:25,002 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-04 21:58:25,002 INFO sqlalchemy.engine.Engine COMMIT
+2026-08-04 21:58:25.003 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/blockchain/chain → 200 (6.31ms)
+INFO:     127.0.0.1:52603 - "GET /api/v1/blockchain/chain HTTP/1.1" 200 OK
+2026-08-04 21:58:25.004 | INFO     | app.middleware.logging:dispatch:13 - GET /api/v1/blockchain/analytics → 200 (5.44ms)
+INFO:     127.0.0.1:52604 - "GET /api/v1/blockchain/analytics HTTP/1.1" 200 OK
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
-2026-08-04 14:44:20.505 | INFO     | main:lifespan:75 - 🛑 Shutting down Enterprise AI Platform...
+2026-08-04 21:58:32.247 | INFO     | main:lifespan:75 - 🛑 Shutting down Enterprise AI Platform...
 INFO:     Application shutdown complete.
-INFO:     Finished server process [4344]
+INFO:     Finished server process [19711]
