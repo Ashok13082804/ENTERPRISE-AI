@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Unified Enterprise AI Platform - Frontend",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "tsc && vite build",

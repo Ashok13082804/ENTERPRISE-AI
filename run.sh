@@ -117,14 +117,29 @@ echo -e "${BLUE}  - Launching FastAPI backend server on http://localhost:8000...
 python -m uvicorn main:app --host 0.0.0.0 --port 8000 > "$PROJECT_ROOT/backend.log" 2>&1 &
 BACKEND_PID=$!
 
-# Wait briefly to check if backend starts successfully
-sleep 3
-if ! kill -0 $BACKEND_PID 2>/dev/null; then
-  echo -e "${RED}❌ Backend failed to start. Check backend.log for details:${NC}"
+# Wait for backend to be fully initialized and accepting requests
+echo -e "  - Waiting for FastAPI backend to be ready on http://127.0.0.1:8000..."
+BACKEND_READY=0
+for i in {1..30}; do
+  if curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1; then
+    BACKEND_READY=1
+    break
+  fi
+  if ! kill -0 $BACKEND_PID 2>/dev/null; then
+    echo -e "${RED}❌ Backend process exited unexpectedly. Check backend.log for details:${NC}"
+    tail -n 20 "$PROJECT_ROOT/backend.log"
+    exit 1
+  fi
+  sleep 1
+done
+
+if [ $BACKEND_READY -eq 1 ]; then
+  echo -e "  - ${GREEN}FastAPI Backend Running & Ready (PID: $BACKEND_PID)${NC}"
+else
+  echo -e "${RED}❌ Backend timed out waiting for server to respond. Check backend.log for details:${NC}"
   tail -n 20 "$PROJECT_ROOT/backend.log"
   exit 1
 fi
-echo -e "  - ${GREEN}FastAPI Backend Running (PID: $BACKEND_PID)${NC}"
 
 # Start Frontend
 cd "$FRONTEND_DIR"
