@@ -51,10 +51,10 @@ const NAV_GROUPS: NavGroup[] = [
   {
     groupLabel: 'AI Engines',
     items: [
-      { icon: Brain,           label: 'MLVerse 100 Platform', path: '/mlverse',   color: 'text-fuchsia-400' },
+      { icon: Brain,           label: 'ML Engine (100+ ML Problems)', path: '/mlverse',   color: 'text-fuchsia-400' },
       { icon: Cpu,             label: 'ML Studio',        path: '/ml',            color: 'text-amber-400' },
       { icon: Eye,             label: 'Vision AI',        path: '/vision',        color: 'text-pink-400' },
-      { icon: Languages,       label: 'NLP Suite',        path: '/nlp',           color: 'text-teal-400' },
+      { icon: Languages,       label: 'Enterprise NLP (200+ Modules)', path: '/nlp',     color: 'text-teal-400' },
       { icon: Link2,           label: 'Blockchain',       path: '/blockchain',    color: 'text-violet-400' },
     ],
   },
