@@ -11,11 +11,16 @@ setupStandaloneMock()
 if (typeof window !== 'undefined') {
   fetch('/api/v1/chat/models', { method: 'GET' })
     .then((r) => {
-      if (r.ok) {
+      const contentType = r.headers.get('content-type') || ''
+      if (r.ok && contentType.includes('application/json')) {
         setStandaloneMockActive(false)
+      } else {
+        setStandaloneMockActive(true)
       }
     })
-    .catch(() => {})
+    .catch(() => {
+      setStandaloneMockActive(true)
+    })
 }
 
 // Attach default interceptor for direct page imports of axios
@@ -28,7 +33,7 @@ axios.interceptors.request.use((config) => {
 })
 
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: (import.meta.env.VITE_API_URL as string) || '/api/v1',
   headers: { 'Content-Type': 'application/json' },
   timeout: 120_000,
 })
@@ -55,9 +60,23 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// Response interceptor: handle 401 & offline fallback
+// Response interceptor: handle 401 & offline fallback & static host SPA rewrites
 api.interceptors.response.use(
-  (response) => response,
+  async (response) => {
+    // If a static host redirected an API call to index.html (e.g. Netlify SPA rewrite)
+    if (
+      typeof response.data === 'string' &&
+      (response.data.includes('<!DOCTYPE html>') || response.data.includes('<!doctype html>'))
+    ) {
+      const mockData = await getMockResponse(response.config || {})
+      return {
+        ...response,
+        data: mockData,
+        headers: { ...response.headers, 'content-type': 'application/json' },
+      }
+    }
+    return response
+  },
   async (error) => {
     if (error.response?.status === 401) {
       useAuthStore.getState().logout()

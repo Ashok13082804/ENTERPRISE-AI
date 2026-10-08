@@ -1363,7 +1363,21 @@ export function setupStandaloneMock() {
 
   // 2. Fallback response error handler (if any request slips through when backend is offline)
   axios.interceptors.response.use(
-    (response) => response,
+    async (response) => {
+      if (
+        typeof response.data === 'string' &&
+        (response.data.includes('<!DOCTYPE html>') || response.data.includes('<!doctype html>'))
+      ) {
+        console.warn('⚡ [Standalone UI Mode] Static host SPA rewrite detected for:', response.config?.url)
+        const mockData = await getMockResponse(response.config || {})
+        return {
+          ...response,
+          data: mockData,
+          headers: { ...response.headers, 'content-type': 'application/json' },
+        }
+      }
+      return response
+    },
     async (error) => {
       // If network error (backend down) or 404/500/502/504, return smooth mock response
       if (

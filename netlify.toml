@@ -1,0 +1,32 @@
+# Netlify Configuration for Unified Enterprise AI Platform
+# Repository Root Configuration
+
+[build]
+  base = "frontend"
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Single Page Application (SPA) redirect rule
+# Netlify will serve index.html for all routes, preserving client-side React Router navigation
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Production security and asset caching headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
