@@ -58,23 +58,27 @@ echo -e "  - Python version: $($PYTHON_BIN --version)"
 echo -e "\n${CYAN}[2/4] Setting Up Backend Virtual Environment...${NC}"
 cd "$BACKEND_DIR"
 
-# Recreate venv if python version mismatch
-if [ -d "venv" ]; then
-  VENV_PYTHON_VER=$(venv/bin/python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null || echo "")
+VENV_DIR=".venv"
+if [ ! -d ".venv" ] && [ -d "venv" ]; then
+  VENV_DIR="venv"
+fi
+
+if [ -d "$VENV_DIR" ]; then
+  VENV_PYTHON_VER=$("$VENV_DIR/bin/python" -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null || echo "")
   TARGET_PYTHON_VER=$($PYTHON_BIN -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null || echo "")
   if [ "$VENV_PYTHON_VER" != "$TARGET_PYTHON_VER" ]; then
     echo -e "  - Recreating virtual environment (version mismatch: $VENV_PYTHON_VER vs $TARGET_PYTHON_VER)..."
-    rm -rf venv
+    rm -rf "$VENV_DIR"
   fi
 fi
 
-if [ ! -d "venv" ]; then
+if [ ! -d "$VENV_DIR" ]; then
   echo -e "  - Creating virtual environment..."
-  $PYTHON_BIN -m venv venv
+  $PYTHON_BIN -m venv "$VENV_DIR"
 fi
 
-echo -e "  - Activating virtual environment..."
-source venv/bin/activate
+echo -e "  - Activating virtual environment ($VENV_DIR)..."
+source "$VENV_DIR/bin/activate"
 
 echo -e "  - Checking/Installing Python dependencies..."
 pip install --upgrade pip --quiet
@@ -112,7 +116,7 @@ fi
 
 # Start Backend
 cd "$BACKEND_DIR"
-source venv/bin/activate
+source "$VENV_DIR/bin/activate"
 echo -e "${BLUE}  - Launching FastAPI backend server on http://localhost:8000...${NC}"
 python -m uvicorn main:app --host 0.0.0.0 --port 8000 > "$PROJECT_ROOT/backend.log" 2>&1 &
 BACKEND_PID=$!

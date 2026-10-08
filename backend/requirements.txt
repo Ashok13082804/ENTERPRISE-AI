@@ -12,6 +12,7 @@ python-multipart==0.0.9
 sqlalchemy==2.0.30
 alembic==1.13.1
 aiosqlite==0.20.0
+greenlet>=3.0.0
 
 # Pydantic (Data Validation)
 pydantic==2.7.1
@@ -21,6 +22,7 @@ email-validator==2.1.1
 # Authentication & Security
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
 cryptography==42.0.7
 pyotp==2.9.0
 
@@ -39,6 +41,8 @@ openpyxl==3.1.4
 pandas==2.2.2
 markdown==3.6
 Pillow==10.3.0
+pdfplumber==0.11.4
+
 
 # ML Libraries (core only, no scipy build issues)
 scikit-learn==1.5.0

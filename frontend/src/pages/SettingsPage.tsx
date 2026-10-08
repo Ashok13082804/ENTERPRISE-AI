@@ -4,12 +4,14 @@ import { motion } from 'framer-motion'
 import { Settings, User, Bell, Lock, Moon, Sun, Save, Loader2 } from 'lucide-react'
 import { usersApi } from '@/api/client'
 import { useAuthStore } from '@/store/authStore'
+import { useThemeStore, Theme } from '@/store/themeStore'
 import toast from 'react-hot-toast'
 
 export default function SettingsPage() {
   const { user, updateUser } = useAuthStore()
+  const { theme: currentTheme, setTheme } = useThemeStore()
   const [activeTab, setActiveTab] = useState<'profile'|'security'|'notifications'|'appearance'>('profile')
-  const [form, setForm] = useState({ full_name: user?.full_name || '', department: user?.department || '', theme: user?.theme || 'dark' })
+  const [form, setForm] = useState({ full_name: user?.full_name || '', department: user?.department || '', theme: currentTheme || 'dark' })
 
   const updateMutation = useMutation({
     mutationFn: () => usersApi.updateMe(form).then(r => r.data),
@@ -68,14 +70,14 @@ export default function SettingsPage() {
 
           {activeTab === 'appearance' && (
             <>
-              <h3 className="text-white font-semibold">Appearance</h3>
+              <h3 className="text-foreground font-semibold">Appearance</h3>
               <div className="grid grid-cols-2 gap-4">
-                {[{ id: 'dark', label: 'Dark Mode', icon: '🌙', desc: 'Deep dark theme' }, { id: 'light', label: 'Light Mode', icon: '☀️', desc: 'Clean white theme' }].map(theme => (
-                  <button key={theme.id} onClick={() => setForm(p => ({ ...p, theme: theme.id }))}
-                    className={`glass-card p-4 text-left transition-all ${form.theme === theme.id ? 'border-primary/50 bg-primary/10' : 'hover:bg-white/10'}`}>
-                    <div className="text-3xl mb-2">{theme.icon}</div>
-                    <div className="text-white font-semibold text-sm">{theme.label}</div>
-                    <div className="text-muted-foreground text-xs">{theme.desc}</div>
+                {[{ id: 'dark', label: 'Dark Mode', icon: '🌙', desc: 'Deep dark theme' }, { id: 'light', label: 'Light Mode', icon: '☀️', desc: 'Clean white theme' }].map(item => (
+                  <button key={item.id} onClick={() => { setForm(p => ({ ...p, theme: item.id as Theme })); setTheme(item.id as Theme); toast.success(`Switched to ${item.label}`); }}
+                    className={`glass-card p-4 text-left transition-all ${currentTheme === item.id ? 'border-primary/50 bg-primary/10' : 'hover:bg-white/10'}`}>
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <div className="text-foreground font-semibold text-sm">{item.label}</div>
+                    <div className="text-muted-foreground text-xs">{item.desc}</div>
                   </button>
                 ))}
               </div>

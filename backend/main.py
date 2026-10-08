@@ -22,7 +22,7 @@ from app.api.routes import (
     auth, users, chat, rag, documents, analytics,
     ml, vision, blockchain, nlp, admin, dashboard,
     projects, tasks, notifications, search, cybersecurity,
-    notes, notes_ai, folders, tags
+    notes, notes_ai, folders, tags, image_studio
 )
 from app.api.routes import healthcare, legal, recruitment, banking, smartcity, education, agriculture
 from app.api.routes.misc_modules import (
@@ -31,6 +31,8 @@ from app.api.routes.misc_modules import (
 )
 # Academic AI Modules
 from app.api.routes import math, physics, chemistry, csverse, bioverse, calcverse, linguaverse, mlverse
+# 450+ Deep Learning Document Analysis & Subproject Platform
+from app.api.dl import analyzer_routes, module_routes, export_routes, history_routes
 from app.middleware.logging import LoggingMiddleware
 from app.middleware.rate_limit import RateLimitMiddleware
 from app.middleware.security import SecurityHeadersMiddleware
@@ -55,6 +57,11 @@ async def lifespan(app: FastAPI):
     # Initialize database
     await create_tables()
     logger.info("✅ Database initialized")
+    
+    # Initialize 450+ Deep Learning Platform Database
+    from app.database.db import init_app_db
+    init_app_db()
+    logger.info("✅ 450+ DL Module Platform Database initialized")
     
     # Seed initial data
     await seed_database()
@@ -103,6 +110,9 @@ def create_app() -> FastAPI:
     # ── Static Files ─────────────────────────────────────────────────────────
     Path("uploads").mkdir(exist_ok=True)
     app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+    from app.core.config import EXPORT_DIR
+    Path(EXPORT_DIR).mkdir(parents=True, exist_ok=True)
+    app.mount("/exports", StaticFiles(directory=str(EXPORT_DIR)), name="exports")
 
     # ── Routers ──────────────────────────────────────────────────────────────
     prefix = "/api/v1"
@@ -156,6 +166,19 @@ def create_app() -> FastAPI:
     app.include_router(notes_ai.router,      prefix=f"{prefix}/notes/ai",      tags=["Notes AI"])
     app.include_router(folders.router,       prefix=f"{prefix}/folders",       tags=["Folders"])
     app.include_router(tags.router,          prefix=f"{prefix}/tags",          tags=["Tags"])
+    # ── AI Image Studio Module ────────────────────────────────────────────────
+    app.include_router(image_studio.router,  prefix=f"{prefix}/image-studio",  tags=["AI Image Studio"])
+
+    # ── 450+ Deep Learning Analysis & Subproject Platform ─────────────────────
+    app.include_router(analyzer_routes.router)
+    app.include_router(module_routes.router)
+    app.include_router(export_routes.router)
+    app.include_router(history_routes.router)
+    # Also mirror under /api/v1 prefix for uniform enterprise API access
+    app.include_router(analyzer_routes.router, prefix="/api/v1")
+    app.include_router(module_routes.router,   prefix="/api/v1")
+    app.include_router(export_routes.router,   prefix="/api/v1")
+    app.include_router(history_routes.router,  prefix="/api/v1")
 
     # ── Health Check ─────────────────────────────────────────────────────────
     @app.get("/health", tags=["Health"])

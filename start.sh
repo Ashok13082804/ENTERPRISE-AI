@@ -97,8 +97,8 @@ source .venv/bin/activate
 
 # Install / upgrade dependencies
 info "Installing Python dependencies..."
-pip install --upgrade pip -q
-pip install -r requirements.txt -q && log "Dependencies installed"
+"$BACKEND_DIR/.venv/bin/pip" install --upgrade pip -q
+"$BACKEND_DIR/.venv/bin/pip" install -r requirements.txt -q && log "Dependencies installed"
 
 # Create directories
 mkdir -p uploads/documents uploads/images uploads/csv logs data
@@ -137,12 +137,13 @@ fi
 
 # Start backend
 info "Starting FastAPI backend on port 8000..."
-nohup python3 -m uvicorn main:app \
+nohup "$BACKEND_DIR/.venv/bin/python" -m uvicorn main:app \
   --host 0.0.0.0 \
   --port 8000 \
   --reload \
-  --log-level info > /tmp/backend.log 2>&1 &
+  --log-level info </dev/null > /tmp/backend.log 2>&1 &
 BACKEND_PID=$!
+disown $BACKEND_PID 2>/dev/null || true
 echo $BACKEND_PID > /tmp/enterprise_ai_backend.pid
 
 # Wait for backend
@@ -174,8 +175,9 @@ else
 fi
 
 info "Starting React dev server on port 3000..."
-nohup npm run dev > /tmp/frontend.log 2>&1 &
+nohup ./node_modules/.bin/vite --host 0.0.0.0 --port 3000 > /tmp/frontend.log 2>&1 &
 FRONTEND_PID=$!
+disown $FRONTEND_PID 2>/dev/null || true
 echo $FRONTEND_PID > /tmp/enterprise_ai_frontend.pid
 
 sleep 3
@@ -208,13 +210,6 @@ elif command -v xdg-open &>/dev/null; then
   xdg-open http://localhost:3000
 fi
 
-# Trap Ctrl+C
-cleanup() {
-  echo -e "\n${YELLOW}Shutting down...${NC}"
-  kill $BACKEND_PID 2>/dev/null || true
-  kill $FRONTEND_PID 2>/dev/null || true
-  exit 0
-}
-trap cleanup INT TERM
+log "Platform services running in background (Backend PID: $BACKEND_PID, Frontend PID: $FRONTEND_PID)"
+echo -e "${YELLOW}To stop all platform services, run: ./stop.sh${NC}"
 
-wait

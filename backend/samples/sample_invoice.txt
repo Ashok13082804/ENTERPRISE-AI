@@ -1,0 +1,26 @@
+TAX INVOICE
+NeuroForge Enterprise Solutions Inc.
+100 Silicon Way, Tech District, CA 94025
+GSTIN / VAT: US94025DL450
+Invoice Number: INV-2026-0984
+Invoice Date: 2026-09-15
+Due Date: 2026-10-15
+
+BILLED TO:
+Apex Global Technologies Corp.
+452 Innovation Blvd, Austin, TX 78701
+Contact: accounts@apextech.com
+
+ITEMIZED CHARGES:
+Item # | Description | Qty | Unit Price | Total Amount
+1 | Enterprise Deep Learning Platform Annual License | 1 | $18,500.00 | $18,500.00
+2 | 450+ Model Acceleration Engine (GPU Cluster Nodes) | 4 | $2,250.00 | $9,000.00
+3 | Automated Document Intelligence Pipeline Setup | 1 | $4,500.00 | $4,500.00
+4 | SLA Dedicated Support & Model Retraining | 12 | $500.00 | $6,000.00
+
+SUBTOTAL: $38,000.00
+APPLICABLE TAX (8.25%): $3,135.00
+TOTAL BALANCE DUE: $41,135.00
+
+PAYMENT TERMS: Net 30 Days.
+Bank Wire: Silicon Valley Reserve Bank | Routing: 121000358 | Account: 849204128

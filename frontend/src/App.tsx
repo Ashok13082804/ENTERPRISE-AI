@@ -40,6 +40,19 @@ import LinguaVersePage from '@/pages/LinguaVersePage'
 import NotesPage from '@/pages/NotesPage'
 import NoteEditorPage from '@/pages/NoteEditorPage'
 import NotesDashboardPage from '@/pages/NotesDashboardPage'
+// 450+ Deep Learning Document Analysis & Subproject Platform
+import DocumentAnalyzerPage from '@/pages/DocumentAnalyzerPage'
+import ModuleExplorerPage from '@/pages/ModuleExplorerPage'
+import SubprojectStudioPage from '@/pages/SubprojectStudioPage'
+import AnalysisHistoryPage from '@/pages/AnalysisHistoryPage'
+// 432 Game Development Hub
+import { GameHubPage } from '@/pages/GameHubPage'
+import { GameDetailPage } from '@/pages/GameDetailPage'
+import { GamePlayPage } from '@/pages/GamePlayPage'
+import { GameBuilderPage } from '@/pages/GameBuilderPage'
+import { GameValidationPage } from '@/pages/GameValidationPage'
+// AI Image Studio
+import ImageStudioPage from '@/pages/ImageStudioPage'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { token } = useAuthStore()
@@ -104,6 +117,20 @@ export default function App() {
         <Route path="notes/new" element={<NoteEditorPage />} />
         <Route path="notes/:id" element={<NoteEditorPage />} />
         <Route path="folders" element={<NotesPage />} />
+        {/* 450+ Deep Learning Platform & Subproject Studio */}
+        <Route path="analyzer" element={<DocumentAnalyzerPage />} />
+        <Route path="dl-modules" element={<ModuleExplorerPage />} />
+        <Route path="dl-subprojects" element={<SubprojectStudioPage />} />
+        <Route path="dl-history" element={<AnalysisHistoryPage />} />
+        {/* 432 Game Development Hub */}
+        <Route path="game-hub" element={<GameHubPage />} />
+        <Route path="game-hub/validation" element={<GameValidationPage />} />
+        <Route path="game-hub/:gameId" element={<GameDetailPage />} />
+        <Route path="game-hub/:gameId/play" element={<GamePlayPage />} />
+        <Route path="game-hub/:gameId/build" element={<GameBuilderPage />} />
+        {/* AI Image Studio */}
+        <Route path="image-studio" element={<ImageStudioPage />} />
+        <Route path="image-studio/:mode" element={<ImageStudioPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

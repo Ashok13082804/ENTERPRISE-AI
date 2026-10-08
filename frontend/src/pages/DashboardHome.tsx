@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
   Users, FileText, MessageSquare, TrendingUp, Brain, Shield, Cpu, Link2,
-  Activity, ArrowUpRight, ArrowDownRight, Zap, BarChart3, Database, Eye
+  Activity, ArrowUpRight, ArrowDownRight, Zap, BarChart3, Database, Eye, Wand2, Gamepad2
 } from 'lucide-react'
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
@@ -19,11 +19,13 @@ const CARD_COLORS = [
 ]
 
 const MODULES = [
+  { icon: Wand2,    label: 'AI Studio',      value: '30 Categories', color: 'text-violet-400', path: '/image-studio' },
   { icon: Brain,    label: 'AI Chat',        value: 'Llama3',    color: 'text-indigo-400', path: '/chat' },
   { icon: Database, label: 'RAG Pipeline',   value: 'ChromaDB',  color: 'text-blue-400',   path: '/rag' },
   { icon: Cpu,      label: 'ML Studio',      value: '6 Models',  color: 'text-amber-400',  path: '/ml' },
   { icon: Eye,      label: 'Vision AI',      value: 'OpenCV',    color: 'text-pink-400',   path: '/vision' },
-  { icon: Link2,    label: 'Blockchain',     value: 'Local',     color: 'text-violet-400', path: '/blockchain' },
+  { icon: Gamepad2, label: '432 Game Hub',   value: '432 Games', color: 'text-rose-400',   path: '/game-hub' },
+  { icon: Link2,    label: 'Blockchain',     value: 'Local',     color: 'text-cyan-400',   path: '/blockchain' },
   { icon: Shield,   label: 'Security',       value: 'JWT+AES',   color: 'text-red-400',    path: '/security' },
 ]
 
@@ -176,7 +178,7 @@ export default function DashboardHome() {
           <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
             <Zap className="w-4 h-4 text-indigo-400" /> Quick Access
           </h3>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {MODULES.map((mod) => (
               <a
                 key={mod.label}

@@ -1,0 +1,29 @@
+Deep Residual Attention Networks for Document Layout Understanding
+Authors: Ashok Kumar, Elena Rostova, David K. Vance
+Affiliation: Institute for Advanced Neural Computing, NeuroForge AI Lab
+
+ABSTRACT
+Automated document analysis requires simultaneous parsing of textual hierarchy, tabular structures, and multimodal visual elements. In this paper, we propose ResAttn-Doc, a novel deep learning architecture integrating 50-layer convolutional feature pyramids with bidirectional multi-head self-attention. Evaluated on a diverse benchmark of 10,000 heterogeneous documents, our methodology achieves 96.8% accuracy on table extraction and 97.2% F1-score on token-level entity classification, outperforming existing CNN and transformer baselines by 4.3%.
+
+1. INTRODUCTION & RESEARCH PROBLEM
+Document image comprehension poses significant challenges due to typographical variability, multi-column layouts, and noise artifacts in scanned media [1]. Traditional rule-based heuristics fail to generalize across multilingual corpora. Recent breakthroughs in vision transformers have demonstrated the utility of joint text-visual representation learning [2].
+
+2. METHODOLOGY & ARCHITECTURAL BACKBONE
+Our model operates across three sequential stages:
+a) Spatial feature extraction via ResNet-50 backbone with dilated convolutions.
+b) Cross-attention projection mapping 2D bounding box spatial coordinates to word embeddings.
+c) Multi-task classification head for semantic section segmentation and bounding box regression.
+
+3. EXPERIMENTAL DATASET & RESULTS
+We conducted experiments on the DocBank and RVL-CDIP datasets. Models were trained using AdamW optimizer with cosine learning rate scheduling (initial lr=3e-4, weight_decay=1e-2) on 8 NVIDIA A100 GPUs for 60 epochs.
+- Table Understanding Accuracy: 96.8%
+- Semantic Entity Classification F1: 97.2%
+- Latency per page: 24.3 milliseconds
+
+4. LIMITATIONS & FUTURE WORK
+While highly effective on digital-native documents, extreme motion blur in degraded scanned documents presents failure modes. Future directions will explore self-supervised diffusion restoration.
+
+5. REFERENCES
+[1] Vaswani et al., 'Attention Is All You Need', NeurIPS 2017.
+[2] He et al., 'Deep Residual Learning for Image Recognition', CVPR 2016.
+[3] Devlin et al., 'BERT: Pre-training of Deep Bidirectional Transformers', NAACL 2019.

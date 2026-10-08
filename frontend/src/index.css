@@ -4,7 +4,7 @@
 
 /* ── CSS Variables ─────────────────────────────────────────────────────────── */
 @layer base {
-  :root {
+  :root, .dark {
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
     --card: 222 47% 13%;
@@ -28,7 +28,7 @@
   }
 
   .light {
-    --background: 0 0% 100%;
+    --background: 210 40% 98%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -36,16 +36,16 @@
     --popover-foreground: 222 47% 11%;
     --primary: 239 84% 60%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96%;
+    --secondary: 210 40% 94%;
     --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 210 40% 92%;
+    --muted-foreground: 215 16% 45%;
     --accent: 270 70% 55%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    --border: 214 32% 88%;
+    --input: 214 32% 90%;
     --ring: 239 84% 60%;
   }
 }
@@ -56,6 +56,7 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
   
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -69,22 +70,48 @@
   .glass {
     @apply bg-white/5 backdrop-blur-xl border border-white/10;
   }
+  .light .glass {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(226, 232, 240, 0.9);
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+  }
+
   .glass-card {
     @apply glass rounded-2xl shadow-2xl;
   }
+  .light .glass-card {
+    background-color: #ffffff;
+    border-color: rgba(226, 232, 240, 0.95);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  }
+
   .glass-nav {
     @apply bg-black/20 backdrop-blur-2xl border-b border-white/10;
+  }
+  .light .glass-nav {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(226, 232, 240, 0.9);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
   }
 
   /* ── Gradient Text ───────────────────────────────────────────────────────── */
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400;
   }
+  .light .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600;
+  }
   .gradient-text-blue {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400;
   }
+  .light .gradient-text-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600;
+  }
   .gradient-text-green {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-400;
+  }
+  .light .gradient-text-green {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600;
   }
 
   /* ── Animated Gradient Border ────────────────────────────────────────────── */
@@ -111,6 +138,9 @@
   .kpi-card {
     @apply glass-card p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-indigo-500/20 hover:shadow-2xl cursor-pointer;
   }
+  .light .kpi-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.15);
+  }
 
   /* ── Neon Glow Effects ───────────────────────────────────────────────────── */
   .neon-indigo { box-shadow: 0 0 20px rgba(99,102,241,0.4), 0 0 60px rgba(99,102,241,0.15); }
@@ -122,8 +152,20 @@
   .sidebar-item {
     @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all duration-200 cursor-pointer text-sm font-medium;
   }
+  .light .sidebar-item {
+    color: #475569;
+  }
+  .light .sidebar-item:hover {
+    color: #0f172a;
+    background-color: rgba(241, 245, 249, 0.9);
+  }
   .sidebar-item.active {
     @apply bg-primary/20 text-primary border border-primary/30;
+  }
+  .light .sidebar-item.active {
+    background-color: rgba(238, 242, 255, 0.95);
+    color: #4f46e5;
+    border-color: rgba(199, 210, 254, 0.9);
   }
 
   /* ── Chat Bubble ─────────────────────────────────────────────────────────── */
@@ -133,14 +175,25 @@
   .chat-bubble-ai {
     @apply glass rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-lg;
   }
+  .light .chat-bubble-ai {
+    background-color: #ffffff;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
 
   /* ── Status Badges ───────────────────────────────────────────────────────── */
   .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
   .badge-success { @apply badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30; }
+  .light .badge-success { @apply bg-emerald-100 text-emerald-700 border-emerald-300; }
   .badge-warning { @apply badge bg-amber-500/20 text-amber-400 border border-amber-500/30; }
+  .light .badge-warning { @apply bg-amber-100 text-amber-700 border-amber-300; }
   .badge-error   { @apply badge bg-red-500/20 text-red-400 border border-red-500/30; }
+  .light .badge-error { @apply bg-red-100 text-red-700 border-red-300; }
   .badge-info    { @apply badge bg-blue-500/20 text-blue-400 border border-blue-500/30; }
+  .light .badge-info { @apply bg-blue-100 text-blue-700 border-blue-300; }
   .badge-purple  { @apply badge bg-purple-500/20 text-purple-400 border border-purple-500/30; }
+  .light .badge-purple { @apply bg-purple-100 text-purple-700 border-purple-300; }
 
   /* ── Animated background particles ──────────────────────────────────────── */
   .bg-particles {
@@ -149,12 +202,26 @@
       radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 60%);
   }
+  .light .bg-particles {
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.03) 0%, transparent 60%);
+  }
 
   /* ── Input Styles ────────────────────────────────────────────────────────── */
   .enterprise-input {
     @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm 
     text-foreground placeholder:text-muted-foreground focus:outline-none 
     focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-200;
+  }
+  .light .enterprise-input {
+    background-color: #ffffff;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+  .light .enterprise-input::placeholder {
+    color: #94a3b8;
   }
 
   /* ── Button Styles ───────────────────────────────────────────────────────── */
@@ -167,9 +234,28 @@
     @apply bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20
     text-foreground font-medium px-6 py-3 rounded-xl transition-all duration-200;
   }
+  .light .btn-secondary {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+    color: #334155;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .light .btn-secondary:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+
   .btn-ghost {
     @apply hover:bg-white/5 text-muted-foreground hover:text-foreground
     font-medium px-4 py-2 rounded-lg transition-all duration-200;
+  }
+  .light .btn-ghost {
+    color: #475569;
+  }
+  .light .btn-ghost:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
   }
 
   /* ── Loading Shimmer ─────────────────────────────────────────────────────── */
@@ -185,7 +271,9 @@
 
   /* ── Metric Display ──────────────────────────────────────────────────────── */
   .metric-up   { @apply text-emerald-400; }
+  .light .metric-up { @apply text-emerald-600; }
   .metric-down { @apply text-red-400; }
+  .light .metric-down { @apply text-red-600; }
 }
 
 /* ── Prose for AI responses ─────────────────────────────────────────────────── */
@@ -205,3 +293,76 @@
 .prose-dark table { @apply w-full border-collapse; }
 .prose-dark th { @apply bg-white/5 px-3 py-2 text-left text-sm font-semibold border border-white/10; }
 .prose-dark td { @apply px-3 py-2 text-sm border border-white/10; }
+
+.light .prose-dark {
+  color: #1e293b;
+}
+.light .prose-dark h1, .light .prose-dark h2, .light .prose-dark h3 {
+  color: #0f172a;
+}
+.light .prose-dark strong {
+  color: #0f172a;
+}
+.light .prose-dark code {
+  background-color: #f1f5f9;
+  color: #4338ca;
+}
+.light .prose-dark pre {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+.light .prose-dark th {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+  color: #0f172a;
+}
+.light .prose-dark td {
+  border-color: #e2e8f0;
+}
+
+/* ── Deep Learning Platform Light Mode Overrides ────────────────────────── */
+.light .bg-dark-950 {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+.light .bg-dark-950\/80 {
+  background-color: rgba(248, 250, 252, 0.9);
+  color: #0f172a;
+}
+.light .bg-dark-900 {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+.light .bg-dark-900\/80,
+.light .bg-dark-900\/60,
+.light .bg-dark-900\/50 {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+}
+.light .bg-dark-850 {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+.light .bg-dark-800 {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+.light .border-slate-800,
+.light .border-slate-850,
+.light .border-slate-800\/80 {
+  border-color: #e2e8f0;
+}
+.light .text-slate-300 {
+  color: #334155;
+}
+.light .text-slate-400 {
+  color: #64748b;
+}
+.light .text-slate-200 {
+  color: #1e293b;
+}
+.light .text-slate-100 {
+  color: #0f172a;
+}
+
+

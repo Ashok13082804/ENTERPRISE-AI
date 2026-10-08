@@ -8,9 +8,13 @@ import {
   Heart, Scale, Briefcase, Banknote, Building2, GraduationCap, Sprout,
   ShoppingCart, Vote, AlertTriangle, Globe, ChevronDown, GitMerge,
   Calculator, Atom, FlaskConical, Code2, Leaf, Compass, Lock,
-  StickyNote, Star, Pin, Archive, Trash2, FolderOpen, Tag, Bookmark
+  StickyNote, Star, Pin, Archive, Trash2, FolderOpen, Tag, Bookmark,
+  Gamepad2, Trophy, Sparkles, Wand2, Palette
 } from 'lucide-react'
 import { useAuthStore } from '@/store/authStore'
+import { useThemeStore } from '@/store/themeStore'
+import { getStandaloneMockActive, setStandaloneMockActive } from '@/api/client'
+import { GameHubFAB } from '@/components/gamehub/GameHubFAB'
 import toast from 'react-hot-toast'
 
 interface NavItem {
@@ -27,6 +31,23 @@ interface NavGroup {
 
 const NAV_GROUPS: NavGroup[] = [
   {
+    groupLabel: '🎨 AI Image Studio',
+    items: [
+      { icon: Wand2,           label: 'AI Image Studio',    path: '/image-studio',              color: 'text-violet-400' },
+      { icon: Sparkles,        label: 'Prompt Generation',  path: '/image-studio?tab=generate', color: 'text-pink-400' },
+      { icon: Palette,         label: '30 Categories Lib',  path: '/image-studio?tab=styles',   color: 'text-cyan-400' },
+      { icon: LayoutDashboard, label: 'Collage Studio',     path: '/image-studio?tab=collage',  color: 'text-amber-400' },
+    ],
+  },
+  {
+    groupLabel: '🎮 Game Hub (432 Games)',
+    items: [
+      { icon: Gamepad2,        label: '432 Game Hub',      path: '/game-hub',           color: 'text-pink-400' },
+      { icon: Code2,           label: 'Game Builder Studio', path: '/game-hub/game-001/build', color: 'text-amber-400' },
+      { icon: Trophy,          label: 'Validation Suite',  path: '/game-hub/validation', color: 'text-emerald-400' },
+    ],
+  },
+  {
     groupLabel: 'Smart Notes',
     items: [
       { icon: StickyNote,      label: 'All Notes',        path: '/notes',              color: 'text-indigo-400' },
@@ -36,6 +57,15 @@ const NAV_GROUPS: NavGroup[] = [
       { icon: Star,            label: 'Favorites',        path: '/notes?filter=favorites', color: 'text-amber-400' },
       { icon: Pin,             label: 'Pinned',           path: '/notes?filter=pinned',    color: 'text-yellow-400' },
       { icon: Trash2,          label: 'Trash',            path: '/notes?filter=trash',     color: 'text-red-400' },
+    ],
+  },
+  {
+    groupLabel: 'Deep Learning (450+ Projects)',
+    items: [
+      { icon: Zap,             label: 'AI Document Analyzer',   path: '/analyzer',        color: 'text-amber-400' },
+      { icon: Cpu,             label: '450+ Module Explorer',   path: '/dl-modules',      color: 'text-cyan-400' },
+      { icon: Code2,           label: 'Subproject Code Studio', path: '/dl-subprojects',  color: 'text-purple-400' },
+      { icon: BarChart2,       label: 'DL Telemetry History',   path: '/dl-history',      color: 'text-emerald-400' },
     ],
   },
   {
@@ -104,11 +134,23 @@ const NAV_GROUPS: NavGroup[] = [
 
 export default function DashboardLayout() {
   const { user, logout } = useAuthStore()
+  const { isDark, toggleTheme } = useThemeStore()
   const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen]         = useState(true)
   const [searchQuery, setSearchQuery]          = useState('')
-  const [dark, setDark]                        = useState(true)
   const [collapsedGroups, setCollapsedGroups]  = useState<Set<string>>(new Set())
+  const [isMock, setIsMock]                    = useState(getStandaloneMockActive())
+
+  const toggleMockMode = () => {
+    const nextState = !isMock
+    setStandaloneMockActive(nextState)
+    setIsMock(nextState)
+    if (nextState) {
+      toast('Switched to Standalone Mock Mode', { icon: '🧪' })
+    } else {
+      toast.success('Switched to Live Backend & Ollama Mode!')
+    }
+  }
 
   const handleLogout = () => {
     logout()
@@ -254,6 +296,45 @@ export default function DashboardLayout() {
             {sidebarOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
 
+          {isMock ? (
+            <button
+              onClick={toggleMockMode}
+              className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 text-xs font-medium shadow-sm transition-all cursor-pointer"
+              title="Click to switch to Live Backend & Ollama"
+            >
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span>Demo Mode</span>
+              <span className="text-amber-500/70 text-[10px]">· Click for Live Ollama</span>
+            </button>
+          ) : (
+            <button
+              onClick={toggleMockMode}
+              className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium shadow-sm transition-all cursor-pointer"
+              title="Click to switch to Standalone Demo Mode"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Live Ollama & Backend Active</span>
+            </button>
+          )}
+
+          <NavLink
+            to="/analyzer"
+            className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/15 to-indigo-500/15 border border-amber-500/30 text-amber-400 hover:text-amber-300 text-xs font-semibold shadow-sm transition-all hover:scale-105"
+            title="AI-Powered Deep Learning Document Intelligence Engine"
+          >
+            <Zap className="w-3.5 h-3.5" />
+            <span>AI Doc Analyzer (450+ DL)</span>
+          </NavLink>
+
+          <NavLink
+            to="/game-hub"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-pink-500/15 to-purple-500/15 border border-pink-500/30 text-pink-400 hover:text-pink-300 text-xs font-semibold shadow-sm transition-all hover:scale-105"
+            title="Open 432 Game Development Hub"
+          >
+            <Gamepad2 className="w-3.5 h-3.5 text-pink-400" />
+            <span>🎮 Game Hub (432 Games)</span>
+          </NavLink>
+
           <div className="flex-1" />
 
           {/* Quick actions */}
@@ -267,8 +348,13 @@ export default function DashboardLayout() {
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-red-500" />
             </NavLink>
 
-            <button onClick={() => setDark(!dark)} className="btn-ghost p-2 rounded-lg">
-              {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            <button
+              onClick={toggleTheme}
+              className="btn-ghost p-2 rounded-lg transition-colors"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
             </button>
 
             <div className="h-5 w-px bg-white/10" />
@@ -288,6 +374,9 @@ export default function DashboardLayout() {
           <Outlet />
         </main>
       </div>
+
+      {/* Floating Game Hub Button on all pages */}
+      <GameHubFAB />
     </div>
   )
 }

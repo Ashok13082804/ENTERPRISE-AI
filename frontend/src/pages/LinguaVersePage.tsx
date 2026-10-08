@@ -8,7 +8,7 @@ import {
 import toast from 'react-hot-toast'
 import axios from 'axios'
 
-const API = 'http://localhost:8000/api/v1'
+const API = typeof window !== 'undefined' ? '/api/v1' : 'http://localhost:8000/api/v1'
 
 const TABS = [
   { id: 'overview',  label: 'Overview',          icon: BarChart2 },

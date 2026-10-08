@@ -1,0 +1,27 @@
+Johnathan Doe
+Senior Deep Learning & NLP Research Engineer
+Email: johnathan.doe@neuroforge.ai | Phone: +1-555-019-2834 | GitHub: github.com/johndoe-ai
+
+PROFESSIONAL SUMMARY
+Innovative Deep Learning Specialist with 7+ years of expertise designing, training, and deploying large-scale neural architectures (PyTorch, Transformers, YOLO, BERT, CNN). Proven track record in automated document parsing, high-throughput inference optimization, and multimodal foundation models.
+
+CORE TECHNICAL SKILLS
+- Deep Learning & ML: PyTorch, TensorFlow, Scikit-learn, OpenCV, HuggingFace Transformers, Torchvision
+- NLP & LLMs: BERT, GPT, T5, DeBERTa, Named Entity Recognition (NER), Sentiment Analysis, Semantic Embeddings, RAG
+- Computer Vision: CNN, ResNet-50, YOLOv8, U-Net Segmentation, Image Classification, Facial Recognition
+- Data & Backend: Python, SQL, Pandas, NumPy, FastAPI, Docker, Kubernetes, Linux, AWS, Git
+
+WORK EXPERIENCE
+Lead AI Engineer | NeuroForge Enterprises (2022 - Present)
+- Architected production document intelligence platform processing 500,000+ complex technical documents with 98.4% extraction accuracy.
+- Reduced model inference latency from 140ms to 18ms using TensorRT quantization and ONNX runtime integration.
+- Led a team of 8 machine learning engineers developing computer vision and NLP pipelines.
+
+Senior Machine Learning Engineer | DeepVision Labs (2019 - 2022)
+- Implemented state-of-the-art vision transformer and ResNet-50 backbones for industrial defect classification.
+- Authored custom loss functions improving F1-score across imbalanced classes from 82.1% to 94.6%.
+
+EDUCATION & CERTIFICATIONS
+- M.S. in Computer Science (Artificial Intelligence Specialization) - Stanford University
+- B.S. in Electrical Engineering & Computer Science - UC Berkeley
+- Certified Deep Learning Professional (NVIDIA Deep Learning Institute)

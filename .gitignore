@@ -1,26 +1,60 @@
-# Python
+# Python Virtual Environments & Caches
 venv/
 .venv/
 backend/venv/
-__pycache__/
+backend/.venv/
+**/__pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 
-# Node
+# Models & Large Weights (8GB+ local cache)
+backend/models/
+models/
+*.bin
+*.pt
+*.pth
+*.safetensors
+*.onnx
+
+# Local Uploads & Exports & Generated Media
+backend/uploads/
+backend/exports/
+backend/generated_images/
+uploads/
+exports/
+
+# Node & Frontend Build
 node_modules/
-
-# Environment
-.env
-
-# Build
+frontend/node_modules/
 dist/
+frontend/dist/
 build/
+.npm/
 
-# IDE
+# Environment & Secrets
+.env
+.env.*
+*.env
+
+# IDE & OS
 .vscode/
 .idea/
-
-# macOS
 .DS_Store
+Thumbs.db
 
-# Database
+# Databases & Vector DBs
 *.db
+*.sqlite*
+backend/enterprise_ai.db
+enterprise_ai.db
+backend/dl_platform.db
+backend/chroma_db/
+chroma_db/
+
+# Logs
+*.log
+backend.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

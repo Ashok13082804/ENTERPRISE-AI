@@ -1,5 +1,22 @@
 import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
+import { setupStandaloneMock, getStandaloneMockActive, setStandaloneMockActive, getMockResponse } from './mockEngine'
+
+export { getStandaloneMockActive, setStandaloneMockActive }
+
+// Initialize Standalone UI/UX Mock interceptor for all Axios requests
+setupStandaloneMock()
+
+// Auto-detect live backend on initialization
+if (typeof window !== 'undefined') {
+  fetch('/api/v1/chat/models', { method: 'GET' })
+    .then((r) => {
+      if (r.ok) {
+        setStandaloneMockActive(false)
+      }
+    })
+    .catch(() => {})
+}
 
 // Attach default interceptor for direct page imports of axios
 axios.interceptors.request.use((config) => {
@@ -21,16 +38,47 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+  // Intercept with mock adapter only in standalone mock mode AND not for live chat/send
+  if (getStandaloneMockActive() && !config.url?.includes('/chat/send')) {
+    config.adapter = async (cfg) => {
+      await new Promise((res) => setTimeout(res, 80))
+      const mockData = await getMockResponse(cfg)
+      return {
+        data: mockData,
+        status: 200,
+        statusText: 'OK',
+        headers: { 'content-type': 'application/json' },
+        config: cfg,
+      } as any
+    }
+  }
   return config
 })
 
-// Response interceptor: handle 401
+// Response interceptor: handle 401 & offline fallback
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
       useAuthStore.getState().logout()
       window.location.href = '/login'
+      return Promise.reject(error)
+    }
+    // If backend is offline, gracefully return simulated response
+    if (
+      !error.response ||
+      error.code === 'ERR_NETWORK' ||
+      error.message?.includes('Network Error') ||
+      error.response?.status >= 400
+    ) {
+      const mockData = await getMockResponse(error.config || {})
+      return Promise.resolve({
+        data: mockData,
+        status: 200,
+        statusText: 'OK',
+        headers: { 'content-type': 'application/json' },
+        config: error.config,
+      })
     }
     return Promise.reject(error)
   }

@@ -8,6 +8,8 @@ import {
 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { chatApi } from '@/api/client'
+import { useGameHistoryStore } from '@/store/gameHistoryStore'
+import { findGameInQuery, isHowToPlayQuery, formatGameManualMarkdown } from '@/utils/gameManualMatcher'
 import toast from 'react-hot-toast'
 
 const MODES = [
@@ -19,11 +21,13 @@ const MODES = [
 ]
 
 const SUGGESTED_PROMPTS = [
+  '🎮 What is my gaming level and stats in 432 Game Hub?',
+  '🕹️ How do I play Snake (GAME-001)? Explain rules & controls',
+  '📖 Show me the user manual and rules for 2048 (GAME-086)',
   '📊 Analyze our Q4 sales data and provide insights',
   '📧 Draft a professional email for a client proposal',
   '🔍 Explain our RAG knowledge base architecture',
   '💻 Write a Python FastAPI endpoint for user authentication',
-  '📋 Generate meeting minutes from this transcript',
   '🤖 What machine learning model is best for customer churn?',
 ]
 
@@ -38,48 +42,63 @@ export default function ChatPage() {
   const [responding, setResponding]       = useState(false)
   const [showExportMenu, setShowExportMenu] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   const [attachedFile, setAttachedFile] = useState<File | null>(null)
   
-  const messagesEndRef = useRef<HTMLDivElement>(null)
   const recognitionRef = useRef<any>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const { data: modelsData } = useQuery({
+    queryKey: ['chat-models'],
+    queryFn: () => chatApi.getModels().then(r => r.data),
+    staleTime: 60_000,
+  })
 
   const { data: sessionsData } = useQuery({
     queryKey: ['chat-sessions'],
     queryFn: () => chatApi.getSessions().then(r => r.data),
   })
 
-  const { data: modelsData } = useQuery({
-    queryKey: ['ollama-models'],
-    queryFn: () => chatApi.getModels().then(r => r.data),
-    staleTime: 300_000,
-  })
-
   const sessions = sessionsData || []
-  const ollamaModels = modelsData?.models || []
+  const ollamaModels: any[] = modelsData?.models ?? []
   const ollamaAvailable = modelsData?.available ?? false
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
+  useEffect(() => {
+    if (ollamaModels.length > 0) {
+      const hasExact = ollamaModels.some((m: any) => m.name === model)
+      if (!hasExact) {
+        const match = ollamaModels.find((m: any) => m.name.startsWith(model))
+        if (match) {
+          setModel(match.name)
+        } else if (ollamaModels[0]?.name) {
+          setModel(ollamaModels[0].name)
+        }
+      }
+    }
+  }, [modelsData])
+
   const sendMutation = useMutation({
     mutationFn: (data: object) => chatApi.sendMessage(data).then(r => r.data),
     onSuccess: (data) => {
+      const reply = data?.response ?? data?.content ?? data?.message?.content ?? (typeof data === 'string' ? data : 'No response returned from model')
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: data.response,
-        sources: data.sources,
-        processing_time_ms: data.processing_time_ms,
-        model: data.model,
+        content: reply,
+        sources: data?.sources || [],
+        processing_time_ms: data?.processing_time_ms,
+        model: data?.model || model,
       }])
-      if (data.session_id && !activeSession) {
+      if (data?.session_id && !activeSession) {
         setActiveSession(data.session_id)
         qc.invalidateQueries({ queryKey: ['chat-sessions'] })
       }
     },
     onError: (err: any) => {
-      toast.error(err.response?.data?.detail || 'Failed to send message')
+      toast.error(err.response?.data?.detail || 'Failed to send message to Ollama')
     },
     onSettled: () => setResponding(false),
   })
@@ -103,7 +122,21 @@ export default function ChatPage() {
       finalMessage += `\n\n[Uploaded File Attachment: ${attachedFile.name} (${(attachedFile.size / 1024).toFixed(1)} KB)]`
     }
 
-    const userMsg = { role: 'user', content: finalMessage }
+    // Check if asking about game level or gaming stats
+    const isGameQuery = /game level|gamer level|gaming level|my level|game stats|gaming stats|high score|432 games|games played|how good am i/i.test(finalMessage)
+    if (isGameQuery) {
+      const profileSummary = useGameHistoryStore.getState().getUserGamingProfileSummary()
+      finalMessage += `\n\n[Verified Local Telemetry from 432 Game Development Hub]:\n${profileSummary}`
+    }
+
+    // Check if asking how to play or for instructions/rules of any of the 432 games
+    const matchedGame = findGameInQuery(finalMessage)
+    const isManualAsk = isHowToPlayQuery(finalMessage) || Boolean(matchedGame && /how|play|rule|instruction|work|control|manual|guide/i.test(finalMessage))
+    if (matchedGame && isManualAsk) {
+      finalMessage += `\n\n[Official 432 Game Hub Manual & Rules for ${matchedGame.name} (${matchedGame.id})]:\n${formatGameManualMarkdown(matchedGame)}`
+    }
+
+    const userMsg = { role: 'user', content: text }
     setMessages(prev => [...prev, userMsg])
     setMessage('')
     setAttachedFile(null)
@@ -240,14 +273,20 @@ export default function ChatPage() {
             onChange={e => setModel(e.target.value)}
             className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-foreground focus:outline-none"
           >
-            <option value="llama3">Llama 3</option>
-            <option value="mistral">Mistral</option>
-            <option value="phi3">Phi-3</option>
-            <option value="gemma">Gemma</option>
-            <option value="deepseek-r1">DeepSeek R1</option>
-            {ollamaModels.map((m: any) => (
-              <option key={m.name} value={m.name}>{m.name}</option>
-            ))}
+            {ollamaModels.length > 0 ? (
+              ollamaModels.map((m: any) => (
+                <option key={m.name} value={m.name}>{m.name}</option>
+              ))
+            ) : (
+              <>
+                <option value="llama3">Llama 3</option>
+                <option value="llama3.2">Llama 3.2</option>
+                <option value="deepseek-r1">DeepSeek R1</option>
+                <option value="mistral">Mistral</option>
+                <option value="phi3">Phi-3</option>
+                <option value="gemma">Gemma</option>
+              </>
+            )}
           </select>
         </div>
 
@@ -424,7 +463,7 @@ export default function ChatPage() {
               </div>
               <div className="chat-bubble-ai flex items-center gap-2">
                 <Loader2 className="w-4 h-4 animate-spin text-indigo-400" />
-                <span className="text-sm text-muted-foreground">Thinking...</span>
+                <span className="text-sm text-muted-foreground">Generating response with {model}...</span>
               </div>
             </motion.div>
           )}
